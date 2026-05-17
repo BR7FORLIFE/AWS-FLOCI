@@ -1,0 +1,64 @@
+Commands
+
+aws --configure 
+aws --endpoint-url <url> //localhost:4566 (servicio de floci)
+
+|  en el bashrc o zshrc |
+
+alias awslocal='aws --endpoint-url http://localhost:4566'
+
+
+-----------------------------------------------------------------------------
+//descripciones de zonas y tipos de instancias disponibles par ec2
+
+awslocal ecs describe-regions // ver las regiones aws
+awslocal ecs describe-availability-zones // ver las zonas de disponibilidad
+awslocal ec2 describe-instance-types // ver los tipos de instancias para ec2
+
+-----------------------------------------------------------------------------
+
+configuracion del servicio ec2
+
+**NOTA** los grupos de seguridad son independientes de las instancias de ec2 tu vinculas la instancia a un grupo
+de suguridad para tener sus politicas
+
+
+| sirve para crear un pem para conectarte con una instancia de ec2 por ssh, manteniendo la seguridad
+
+  awslocal ec2 create-key-pair --key-name <nombre de la clave PEM o RSA> 
+
+| configuracion de firewall o grupo de seguridad para la instancia de aws. Es el que permite que trafico puede 
+entrar o salir de una instancia, es la carpeta logica donde guardar las politicas de red de las instancias no define
+reglas aun.
+
+  
+ 
+ awslocal ecs create-security-group  --group-name <nombre del grupo de seguridad> --description "la descripcion del grupo" 
+  
+
+| configurar las politicas de seguridad y añadirlas dentro del grupo de seguridad (para el trafico que entra "ingress")
+
+  
+ awslocal ec2 authorize-security-group-ingress \
+    --group-name <group name> // este el grupo de seguridad a la cual voy a añadir las reglas
+    --protocol <type of protocol> // protocolo a utilizar (tcp, udp, icmp, -1 (todos))
+    --port <port | port group> // puerto o grupo de puertos
+    --cidr <ip> quien puede conectarse ya sea por ip, rango de ip o todo internet 0.0.0.0/0
+ 
+
+| crear la instancia de ec2
+
+awslocal ec2 run-instances \
+    --image-id <image_id> //define el sistema operativo base que tendra la VM
+    --instance-type <type instantce> //el tipo de instancia de ec2 a utilizar, (micro, nano, small etc)
+    --key-name <key id> //define el ssh key pair a utilizar para usar el acceso remoto
+    --security-groups <security group> // el grupo de seguridad que utilizara para vincular las politicas de seguridad
+    --min-count <count min> //le dice el minimo de instancias que necesitas
+    --max-count <count max> // le dice la cantidad ideal de instancias que necesitas 
+
+
+Comandos auxiliares que ayudan mucho
+
+- awslocal ec2 describe-security-groups // lista todos los grupos de seguridad
+- awslocal ec2 describe-key-pairs // lista los key pair generados para vincularlos a las instancias de ec2
+- awslocal ec2 describe-images //tener cuidado son muchas imagenes las que existen (filtrar por propietario)
