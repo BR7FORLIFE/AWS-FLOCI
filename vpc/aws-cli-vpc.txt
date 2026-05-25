@@ -1,0 +1,85 @@
+VPC -> VIRTUAL PRIVATE CLOUD (AMAZON)
+
+MANEJO DE NETWORKING
+
+un VPS es mi mini red privada dentro de AWS, dentro de dicha mini red puedo tener: 
+
+- mi propio datacenter virtual
+- con IPs
+- rutas
+- firewalls
+- subredes
+
+Arquitectura correcta 
+
+Internet
+   ↓
+Internet Gateway
+   ↓
+VPC
+ ├── Public Subnet
+ │      └── EC2 pública
+ │
+ └── Private Subnet
+        └── DB / backend privado
+
+
+TEMAS A PROFUNDIZAR
+
+CIDR -> define el rango de IPs, y el tamaño de la red. Ejemplo: 
+
+10.0.0.0/16 -> el /16 define que tan grande es la red dentro de la localidad ejemplo /32 entre mas grande mas pequeño
+es la red, viceversa pues es mas grande
+
+EJEMPLO
+
+| CIDR | Tamaño aproximado |
+| ---- | ----------------- |
+| /16  | ~65k IPs          |
+| /24  | 256 IPs           |
+| /32  | 1 IP              |
+
+Analogia
+
+VPC = ciudad
+Subnets = barrios
+IPs = casas
+
+¿ QUE ES UNA SUBNET ?
+
+Una subnet es una subdivision de una VPC, o un segmento de red hay dos tipos PUBLICOS Y PRIVADOS
+
+PUBLICOS -> Pueden comunicarse con internet, ejemplos: servicios que necesites exponer a interner ya sea
+nginx, frontend, load balancer.. etc. lo hacen por medios de tablas de routing
+
+PRIVADOS -> no tienen acceso directo a internet por ejemplo: 
+backends, bases de datos..etc servicios que no quieres exponer. No poseen tablas de routing
+
+La comunicacion entre subnet y intenet se hace por medio de un Internet Gateway (IGW)
+
+FLUJO
+
+EC2
+ ↓
+Route Table
+ ↓
+Internet Gateway
+ ↓
+Internet
+
+¿ Que es un NAT Gateway ?
+
+Permite salida a internet sin permitir entradas de internet ejemplo
+en los Subnet Privados vamos a querer llamar a intenet ya sea para pedir servicios
+pero no queremos que intenet interactue con nosotros, asi que el NAT permite hablar 
+externamente pero no hay trafico interno de internet.
+
+Ejemplo: El backend hace una actualizacion de paquetes de Linux, el flujo seria el siguiente: 
+
+Private EC2
+ ↓
+NAT Gateway
+ ↓
+Internet Gateway
+ ↓
+Internet
