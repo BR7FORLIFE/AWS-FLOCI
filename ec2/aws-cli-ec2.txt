@@ -11,8 +11,8 @@ alias awslocal='aws --endpoint-url http://localhost:4566'
 -----------------------------------------------------------------------------
 //descripciones de zonas y tipos de instancias disponibles par ec2
 
-awslocal ecs describe-regions // ver las regiones aws
-awslocal ecs describe-availability-zones // ver las zonas de disponibilidad
+awslocal ec2 describe-regions // ver las regiones aws
+awslocal ec2 describe-availability-zones // ver las zonas de disponibilidad
 awslocal ec2 describe-instance-types // ver los tipos de instancias para ec2
 
 -----------------------------------------------------------------------------
