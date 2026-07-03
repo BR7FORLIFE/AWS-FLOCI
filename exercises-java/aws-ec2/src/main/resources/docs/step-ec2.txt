@@ -1,0 +1,22 @@
+1. Creates an RSA key pair and saves the private key data as a .pem file.
+2. Lists key pairs.
+3. Creates a security group for the default VPC.
+4. Displays security group information.
+5. Gets a list of Amazon Linux 2 AMIs and selects one.
+6. Gets additional information about the image.
+7. Gets a list of instance types that are compatible with the selected AMI’s
+architecture.
+8. Creates an instance with the key pair, security group, AMI, and an
+instance type.
+9. Displays information about the instance.
+10. Stops the instance and waits for it to stop.
+11. Starts the instance and waits for it to start.
+12. Allocates an Elastic IP address and associates it with the instance.
+13. Displays SSH connection info for the instance.
+14. Disassociates and deletes the Elastic IP address.
+15. Terminates the instance and waits for it to terminate.
+16. Deletes the security group.
+17. Deletes the key pair.
+
+# Recurso donde se extrajo la información -> 
+https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/java_ec2_code_examples.html
