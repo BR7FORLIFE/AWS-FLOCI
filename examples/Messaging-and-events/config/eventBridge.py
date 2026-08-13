@@ -5,6 +5,8 @@ from mypy_boto3_events.type_defs import PutEventsRequestEntryTypeDef
 
 # ARN -> Amazon Resource Name
 
+# eventBridge pipiline -> event -> eventBus -> rules -> targets
+
 # evntBridge nos permite desacoplar servicios y nos da enrutamiento de eventos siguiendo unas reglas
 client: EventBridgeClient = boto3.client("events", endpoint_url= "http://localhost:4566")
 
