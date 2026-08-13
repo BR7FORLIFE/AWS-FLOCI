@@ -10,5 +10,5 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "boto3-stubs[events,sqs]>=1.43.69",
+    "boto3-stubs[events,sns,sqs]>=1.43.69",
 ]
